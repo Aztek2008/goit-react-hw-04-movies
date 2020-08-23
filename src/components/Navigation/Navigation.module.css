@@ -1,0 +1,21 @@
+.NavigationMenu {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.NavigationItem {
+  list-style: none;
+  margin-right: 30px;
+}
+
+.NavigationLink {
+  color: brown;
+  font-weight: bold;
+  font-size: 28px;
+  text-decoration: none;
+}
+
+.NavigationLinkActive {
+  color: snow;
+  text-decoration: underline;
+}
