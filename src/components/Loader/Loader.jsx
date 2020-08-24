@@ -9,7 +9,7 @@ const Loader = () => {
     <Loaderer
       className={styles.Loader}
       type="ThreeDots"
-      color="#00BFFF"
+      color="#FF6347"
       height={80}
       width={80}
     />

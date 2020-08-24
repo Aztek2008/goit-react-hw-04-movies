@@ -1,58 +1,54 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 
-import Search from "../components/Search/Search";
 import Loader from "../components/Loader/Loader";
-import Button from "../components/Button/Button";
+import Search from "../components/Search/Search";
 import Notification from "../components/Notification";
-import ApiFetcher from "../services/ApiFetcher";
 import MovieCard from "../components/MovieCard/MovieCard";
-// import getQueryParams from "../utils/getQueryStringParams";
-// import routes from "../routes";
+import ApiFetcher from "../services/ApiFetcher";
+import getQueryParams from "../utils/getQueryStringParams";
 
 export default class MoviesPage extends Component {
-  static defaultProps = {
-    src: "../assets/pusheen.jpg",
-  }; // NOT WORKING
-
   state = {
     movies: [],
-    searchQuery: "",
     page: 1,
     isLoading: false,
     error: null,
   };
 
-  componentDidUpdate(prevProps, prevState) {
-    const prevQuery = prevState.searchQuery;
-    const nextQuery = this.state.searchQuery;
-
-    prevQuery !== nextQuery && this.handleSearchFetcher();
+  componentDidMount() {
+    const { query } = getQueryParams(this.props.location.search);
+    query && this.handleSearchFetcher(query);
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    const { query: prevQuery } = getQueryParams(prevProps.location.search);
+    const { query: nextQuery } = getQueryParams(this.props.location.search);
+
+    prevQuery !== nextQuery && this.handleSearchFetcher(nextQuery);
+  }
+  // =================================
   // ОБРАБОТЧИК ВВОДА В ПОЛЕ ЗАПРОСА
+  // =================================
   handleSearchQuery = (query) => {
-    this.setState({ movies: [], searchQuery: query, page: 1 });
+    this.props.history.push({
+      ...this.props.location,
+      search: `query=${query}`,
+    });
   };
 
+  // =================================
   // ОБРАБОТЧИК ЗАПРОСА ПО СЛОВУ
-  handleSearchFetcher = () => {
-    const { searchQuery, page } = this.state;
-
-    ApiFetcher.searchFetcher(searchQuery, page)
-      .then((movies) =>
-        this.setState((prevState) => ({
-          movies: [...prevState.movies, ...movies],
-          page: prevState.page + 1,
-        }))
-      )
+  // =================================
+  handleSearchFetcher = (query) => {
+    ApiFetcher.searchFetcher(query)
+      .then((movies) => this.setState({ movies }))
       .catch((error) => this.setState({ error }))
       .finally(() => this.setState({ isLoading: false }));
   };
 
   render() {
     const { movies, isLoading, error } = this.state;
-    const { match } = this.props;
+    const { match, location } = this.props;
 
     return (
       <div>
@@ -66,18 +62,42 @@ export default class MoviesPage extends Component {
 
         <ul className="MoviesGallery">
           {movies.map((movie) => (
-            <MovieCard key={movie.id} movie={movie} match={match.url} />
+            <MovieCard
+              key={movie.id}
+              movie={movie}
+              match={match.url}
+              location={location}
+            />
           ))}
         </ul>
 
         {isLoading && <Loader />}
 
         {movies.length > 0 && !isLoading && (
-          <Button onClick={this.handleSearchFetcher}>
+          <button
+            className="showMoreBtnStyle"
+            onClick={this.handleSearchFetcher}
+          >
             <span className="buttonTitle">Show More</span>
-          </Button>
+          </button>
         )}
       </div>
     );
   }
 }
+
+// this.setState({ movies: [], searchQuery: query, page: 1 });
+
+// handleSearchFetcher = () => {
+//   const { movies, page } = this.state;
+
+//   ApiFetcher.searchFetcher(movies, page)
+//     .then((movies) =>
+//       this.setState((prevState) => ({
+//         movies: [...prevState.movies, ...movies],
+//         page: prevState.page + 1,
+//       }))
+//     )
+//     .catch((error) => this.setState({ error }))
+//     .finally(() => this.setState({ isLoading: false }));
+// };
