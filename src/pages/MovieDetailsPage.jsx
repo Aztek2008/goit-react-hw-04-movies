@@ -1,13 +1,13 @@
 import React, { Component } from "react";
 import { NavLink, Route, Switch } from "react-router-dom";
 
-import routes from "../routes";
 import Loader from "../components/Loader/Loader";
 import Notification from "../components/Notification";
 import MovieReviewSection from "../components/MovieReviewSection";
 import ApiFetcher from "../services/ApiFetcher";
 import Reviews from "./Reviews";
 import Cast from "./Cast";
+import routes from "../routes";
 
 export default class MovieDetailsPage extends Component {
   state = {
@@ -18,7 +18,6 @@ export default class MovieDetailsPage extends Component {
 
   componentDidMount() {
     this.handleDetailsFetcher();
-    console.log("details", this.state.details);
   }
 
   // =================================
@@ -51,12 +50,20 @@ export default class MovieDetailsPage extends Component {
     history.push(routes.home);
   };
 
+  // ===============================
+  // V V V - RENDER IS HERE - V V V
+  // ===============================
   render() {
     const { details, isLoading, error } = this.state;
     const { match } = this.props;
+    const { movieId } = this.props.match.params;
 
-    console.log("match.path in movdets page", match.path);
+    console.log("movieId in props of movie detail page", movieId);
 
+    console.log("match.url in movdets page", match.url);
+    // ===============================
+    // V V V - RETURN IS HERE - V V V
+    // ===============================
     return (
       <div>
         {error && (
@@ -73,12 +80,15 @@ export default class MovieDetailsPage extends Component {
         )}
         <hr />
 
+        {/* ======================================================== */}
+        {/* V V V - LOWER HEADER WITH CAST AND REVIEWS LINKS - V V V */}
+        {/* ======================================================== */}
         <div className="HeaderForCastReviews">
           <h2 className="castHeaderTitle">Additional information:</h2>
 
           <NavLink
             to={routes.movieCast}
-            // to={"/movies/:movieId/cast"}
+            // to={`/movies/${movieId}/cast`}
             className="NavigationItem"
             activeClassName="NavigationLinkActive"
           >
@@ -98,6 +108,10 @@ export default class MovieDetailsPage extends Component {
         </div>
         <hr />
         {isLoading && <Loader />}
+
+        {/* ========================================================= */}
+        {/* V V V - RENDER SECTION FOR CAST AND REVIEWS PAGES - V V V */}
+        {/* ========================================================= */}
         <Switch>
           <Route path={`${match.path}/cast`} component={Cast} />
           <Route path={`${match.path}/reviews`} component={Reviews} />

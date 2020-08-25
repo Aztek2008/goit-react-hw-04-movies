@@ -9,7 +9,6 @@ const Navigation = () => (
       <NavLink
         exact
         to={routes.home}
-        // to={"/"}
         className={s.NavigationLink}
         activeClassName={s.NavigationLinkActive}
       >
@@ -19,7 +18,6 @@ const Navigation = () => (
     <li className={s.NavigationItem}>
       <NavLink
         to={routes.movies}
-        // to={"/movies"}
         className={s.NavigationLink}
         activeClassName={s.NavigationLinkActive}
       >

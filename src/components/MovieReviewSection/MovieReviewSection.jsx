@@ -5,10 +5,14 @@ const baseImgUrl = "https://image.tmdb.org/t/p/w500";
 
 const MovieReviewSection = ({ details, onClick }) => (
   <div className={s.detailsArticle}>
+    <img
+      className={s.moviePoster}
+      src={`${baseImgUrl}${details.poster_path}`}
+      alt="Movie poster"
+    />
     <button className={s.gotoMoviesBtn} onClick={onClick} type="button">
       Goto Movies
     </button>
-    <img src={`${baseImgUrl}${details.poster_path}`} alt="Movie poster" />
     <div className={s.reviewArticle}>
       <h1>{details.original_title}</h1>
       <p className={s.tagline}>{details.tagline}</p>

@@ -13,8 +13,13 @@ export default class Cast extends Component {
 
   componentDidMount() {
     this.handleCastFetcher();
+
     console.log("castInfo", this.state.castInfo);
-    console.log("this movieId", this.props.match.params.movieId);
+    console.log("this movieId in match", this.props.match.params.movieId);
+    console.log(
+      "this movieId in history",
+      this.props.history.location.pathname
+    );
   }
 
   // =================================

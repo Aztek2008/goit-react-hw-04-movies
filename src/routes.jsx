@@ -1,5 +1,3 @@
-// import { lazy } from "react";
-
 export default {
   home: "/",
   movies: "/movies",

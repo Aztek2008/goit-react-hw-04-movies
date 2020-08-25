@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import ApiFetcher from "../services/ApiFetcher";
 import "../index.css";
 
-export default class Cast extends Component {
+export default class Reviews extends Component {
   state = {
     reviews: [],
     isLoading: false,
@@ -11,8 +11,12 @@ export default class Cast extends Component {
 
   componentDidMount() {
     this.handleReviewFetcher();
+
     console.log("reviews in reviews page", this.state.reviews);
-    console.log("this movieId", this.props.match.params.movieId);
+    console.log(
+      "this movieId in reviews page",
+      this.props.match.params.movieId
+    );
   }
 
   // =================================
