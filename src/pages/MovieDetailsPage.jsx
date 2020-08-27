@@ -58,9 +58,6 @@ export default class MovieDetailsPage extends Component {
     const { match } = this.props;
     const { movieId } = this.props.match.params;
 
-    console.log("movieId in props of movie detail page", movieId);
-
-    console.log("match.url in movdets page", match.url);
     // ===============================
     // V V V - RETURN IS HERE - V V V
     // ===============================
@@ -87,8 +84,7 @@ export default class MovieDetailsPage extends Component {
           <h2 className="castHeaderTitle">Additional information:</h2>
 
           <NavLink
-            to={routes.movieCast}
-            // to={`/movies/${movieId}/cast`}
+            to={`/movies/${movieId}/cast`}
             className="NavigationItem"
             activeClassName="NavigationLinkActive"
           >
@@ -96,8 +92,7 @@ export default class MovieDetailsPage extends Component {
           </NavLink>
 
           <NavLink
-            to={routes.movieReviews}
-            // to={"/movies/:movieId/reviews"}
+            to={`/movies/${movieId}/reviews`}
             className="NavigationItem"
             activeClassName="NavigationLinkActive"
           >

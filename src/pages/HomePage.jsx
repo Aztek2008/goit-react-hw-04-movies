@@ -18,7 +18,10 @@ export default class HomePage extends Component {
     this.handleApiFetcher();
   }
 
+  // ===========================================================
   // ЗАПРОС ПОПУЛЯРНЫХ ФИЛЬМОВ ДЛЯ ВЫВОДА ПРИ ЗАГРУЗКЕ СТРАНИЦЫ
+  // ===========================================================
+
   handleApiFetcher = (query) => {
     ApiFetcher.defaultMoviesFetcher()
       .then((response) =>

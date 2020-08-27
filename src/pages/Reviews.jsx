@@ -11,12 +11,6 @@ export default class Reviews extends Component {
 
   componentDidMount() {
     this.handleReviewFetcher();
-
-    console.log("reviews in reviews page", this.state.reviews);
-    console.log(
-      "this movieId in reviews page",
-      this.props.match.params.movieId
-    );
   }
 
   // =================================
@@ -39,18 +33,20 @@ export default class Reviews extends Component {
     const { reviews } = this.state;
     return (
       <div>
-        {reviews && (
-          <ul className="CastGallery">
-            {reviews.map((review) => (
+        <ul className="ReviewGallery">
+          {reviews.length > 0 ? (
+            reviews.map((review) => (
               <li key={review.id}>
-                <div className="CastItem">
-                  <h3>{review.author}</h3>
-                  <p>{review.content}</p>
+                <div className="ReviewItem">
+                  <h3 className="ReviewHeader">{review.author}</h3>
+                  <p>"{review.content}"</p>
                 </div>
               </li>
-            ))}
-          </ul>
-        )}
+            ))
+          ) : (
+            <p className="DefaultReviewInfo">So far no reviews here...</p>
+          )}
+        </ul>
       </div>
     );
   }

@@ -45,8 +45,7 @@ export default class MoviesPage extends Component {
   // =================================
   handleSearchFetcher = (query) => {
     this.setState({ isLoading: true });
-    console.log("query in search fetcher", query);
-
+    
     const { page } = this.state;
 
     ApiFetcher.searchFetcher(query, page)
@@ -60,6 +59,9 @@ export default class MoviesPage extends Component {
       .finally(() => this.setState({ isLoading: false }));
   };
 
+  // ===============================
+  // V V V - RENDER IS HERE - V V V
+  // ===============================
   render() {
     const { movies, isLoading, error } = this.state;
     const { match, location } = this.props;
@@ -94,7 +96,7 @@ export default class MoviesPage extends Component {
           >
             <span className="buttonTitle">Show More</span>
           </button>
-          // TO MAKE BUTTON WORKS!!!!
+          // FIX BUTTON !!!!
         )}
       </div>
     );
