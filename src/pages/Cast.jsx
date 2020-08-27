@@ -2,7 +2,6 @@ import React, { Component } from "react";
 
 import ApiFetcher from "../services/ApiFetcher";
 import "../index.css";
-import routes from "../routes";
 
 const baseImgUrl = "https://image.tmdb.org/t/p/w500";
 
